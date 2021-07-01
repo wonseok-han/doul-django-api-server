@@ -1,0 +1,15 @@
+django==3.2.4
+django-environ
+django-extensions
+django-cors-headers
+django-filter
+djangorestframework
+drf-jwt
+
+flatten-dict
+
+pycryptodome
+
+requests
+
+user-agents

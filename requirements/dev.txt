@@ -1,0 +1,4 @@
+-r common.txt
+
+black
+django-debug-toolbar

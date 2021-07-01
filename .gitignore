@@ -1,0 +1,17 @@
+.idea
+.vscode
+.DS_Store
+.ipynb_checkpoints
+
+__pycache__
+*.sqlite3
+/staticfiles
+/mediafiles
+
+venv/
+.venv/
+
+.env*
+.history
+
+inspectdb.py
