@@ -22,7 +22,7 @@ class User(AbstractBaseUser, PermissionsMixin, TimeStampModel):
     USERNAME_FIELD = "username"
     REQUIRED_FIELDS = ["name", "email"]
 
-    is_active = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
 
