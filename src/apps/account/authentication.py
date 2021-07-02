@@ -5,7 +5,7 @@ from rest_framework_jwt.authentication import (
     JSONWebTokenAuthentication as OrigJSONWebTokenAuthentication,
 )
 
-from .models import SystemUser
+from .models import User
 
 
 class JSONWebTokenAuthentication(OrigJSONWebTokenAuthentication):
@@ -16,7 +16,7 @@ class JSONWebTokenAuthentication(OrigJSONWebTokenAuthentication):
             return None
 
         # token 값 자체에 대한 검증 후처리
-        system_user: SystemUser
+        system_user: User
         system_user, token_from_request = user_and_token
 
         if system_user.token != token_from_request:
@@ -39,7 +39,7 @@ class TransferringUserJWTAuthentication(JSONWebTokenAuthentication):
             # TODO: 사용자 전환 권한 체킹하고, 권한이 없으면 PermissionDenied 예외 발생
 
             transfer_user = (
-                SystemUser.objects.exclude(username=system_user.username)
+                User.objects.exclude(username=system_user.username)
                 .filter(username=transfer_username)
                 .first()
             )

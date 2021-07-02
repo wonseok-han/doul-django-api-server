@@ -2,18 +2,60 @@ from django.db import models
 from django.db.models import QuerySet
 from typing import Optional
 from django.utils import timezone
-from django.contrib.auth.models import AbstractUser, UserManager
+from django.contrib.auth.models import (
+    AbstractBaseUser,
+    UserManager,
+    PermissionsMixin,
+)
 from core.models import TimeStampModel
 from django.conf import settings
 from rest_framework_jwt.settings import api_settings
 
 
-class User(AbstractUser):
-    pass
-
-
 class CustomUserManager(UserManager):
     pass
+
+
+class User(AbstractBaseUser, PermissionsMixin, TimeStampModel):
+    objects = CustomUserManager()
+
+    USERNAME_FIELD = "username"
+    REQUIRED_FIELDS = ["name", "email"]
+
+    is_active = models.BooleanField(default=False)
+    is_staff = models.BooleanField(default=False)
+    is_superuser = models.BooleanField(default=False)
+
+    token = models.CharField(max_length=500, db_index=True, null=True)
+    expired_at = models.DateTimeField(db_index=True, null=True)
+
+    username = models.CharField(
+        db_column="USER_ID",
+        unique=True,
+        max_length=20,
+        verbose_name="사용자아이디",
+    )
+    name = models.CharField(
+        db_column="NM",
+        max_length=50,
+        verbose_name="이름",
+    )
+    email = models.EmailField(
+        db_column="EMAIL",
+        max_length=50,
+        verbose_name="이메일",
+    )
+    password = models.CharField(
+        db_column="PASSWORD",
+        max_length=128,
+        verbose_name="비밀번호",
+    )
+
+    class Meta:
+        # db_alias = "SYSTEM"
+        db_alias = "default"
+        db_table = "SYSTEM_USER"
+        verbose_name = "사용자"
 
 
 class IssuedTokenQuerySet(QuerySet):
@@ -23,45 +65,6 @@ class IssuedTokenQuerySet(QuerySet):
     def active(self, user: Optional[User]) -> QuerySet:
         qs = self.filter(is_active=True, user=user)
         return qs
-
-
-class SystemUser(TimeStampModel):
-    objects = CustomUserManager()
-
-    is_active = models.BooleanField(default=False)
-    is_staff = models.BooleanField(default=False)
-    is_anonymous = models.BooleanField(default=False)
-    is_authenticated = models.BooleanField(default=False)
-    is_superuser = models.BooleanField(default=False)
-
-    expires_at = models.DateTimeField(db_index=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-
-    token = models.CharField(max_length=500, db_index=True)
-
-    USERNAME_FIELD = "username"
-
-    username = models.CharField(
-        db_column="USER_ID",
-        primary_key=True,
-        max_length=20,
-        verbose_name="사용자아이디",
-    )
-    name = models.CharField(
-        db_column="NM",
-        max_length=50,
-        verbose_name="이름",
-    )
-    password = models.BinaryField(
-        db_column="PASSWORD",
-        verbose_name="비밀번호",
-    )
-
-    class Meta:
-        # db_alias = "SYSTEM"
-        db_alias = "default"
-        db_table = "SYSTEM_USER"
-        verbose_name = "사용자"
 
 
 class IssuedToken(TimeStampModel):

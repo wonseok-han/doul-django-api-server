@@ -5,11 +5,13 @@ class TimeStampModel(models.Model):
     insert_user_id = models.CharField(
         db_column="INS_USER_ID",
         max_length=20,
+        default="dev",
         verbose_name="입력사용자아이디",
     )
     insert_user_ip = models.GenericIPAddressField(
         db_column="INS_USER_IP",
         max_length=20,
+        default="127.0.0.1",
         verbose_name="입력사용자아이디",
     )
     insert_date_time = models.DateTimeField(
