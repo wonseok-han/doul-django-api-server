@@ -39,7 +39,6 @@ class SystemUser(TimeStampModel):
 
     token = models.CharField(max_length=500, db_index=True)
 
-    REQUIRED_FIELDS = ["user_key"]
     USERNAME_FIELD = "username"
 
     username = models.CharField(
@@ -59,11 +58,10 @@ class SystemUser(TimeStampModel):
     )
 
     class Meta:
-        managed = False
+        # db_alias = "SYSTEM"
+        db_alias = "default"
         db_table = "SYSTEM_USER"
-
         verbose_name = "사용자"
-        db_alias = "SYSTEM"
 
 
 class IssuedToken(TimeStampModel):
@@ -116,11 +114,10 @@ class IssuedToken(TimeStampModel):
     )
 
     class Meta:
-        managed = False
+        # db_alias = "SYSTEM"
+        db_alias = "default"
         db_table = "SYSTEM_USER_TOKEN"
-
         verbose_name = "공통.사용자인증"
-        db_alias = "SYSTEM"
 
     def __str__(self):
         return "Issued token - {} - {}".format(self.user, self.token)
