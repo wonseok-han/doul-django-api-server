@@ -22,16 +22,41 @@ class User(AbstractBaseUser, PermissionsMixin, TimeStampModel):
     USERNAME_FIELD = "username"
     REQUIRED_FIELDS = ["name", "email"]
 
-    is_active = models.BooleanField(default=True)
-    is_staff = models.BooleanField(default=False)
-    is_superuser = models.BooleanField(default=False)
+    is_active = models.BooleanField(
+        db_column="IS_ACTIVE",
+        default=True,
+    )
+    is_staff = models.BooleanField(
+        db_column="IS_STAFF",
+        default=False,
+    )
+    is_superuser = models.BooleanField(
+        db_column="IS_SUPERUSER",
+        default=False,
+    )
+    last_login = models.DateTimeField(
+        db_column="LAST_LOGIN",
+        blank=True,
+        null=True,
+        verbose_name="마지막로그인일시",
+    )
 
-    token = models.CharField(max_length=500, db_index=True, null=True)
-    expired_at = models.DateTimeField(db_index=True, null=True)
+    token = models.CharField(
+        db_column="TOKEN",
+        max_length=500,
+        db_index=True,
+        null=True,
+    )
+    expired_at = models.DateTimeField(
+        db_column="EXPIRED_AT",
+        db_index=True,
+        null=True,
+    )
 
     username = models.CharField(
         db_column="USER_ID",
-        unique=True,
+        primary_key=True,
+        # unique=True,
         max_length=20,
         verbose_name="사용자아이디",
     )
@@ -60,7 +85,7 @@ class User(AbstractBaseUser, PermissionsMixin, TimeStampModel):
 
 class IssuedTokenQuerySet(QuerySet):
     def expired(self, user: Optional[User]) -> QuerySet:
-        return self.filter(expires_at__lt=timezone.now(), user=user)
+        return self.filter(expired_at__lt=timezone.now(), user=user)
 
     def active(self, user: Optional[User]) -> QuerySet:
         qs = self.filter(is_active=True, user=user)
@@ -71,7 +96,7 @@ class IssuedToken(TimeStampModel):
     objects = IssuedTokenQuerySet.as_manager()
 
     token = models.CharField(
-        db_column="USER_ACCREDIT_TOKEN_CONTENT",
+        db_column="TOKEN",
         max_length=500,
         primary_key=True,
         verbose_name="사용자인증토큰내용",
@@ -83,37 +108,11 @@ class IssuedToken(TimeStampModel):
         verbose_name="사용자식별자(사용자아이디)",
         on_delete=models.CASCADE,
     )
-    is_active = models.BooleanField(
-        db_column="USER_ACCREDIT_LOGIN_FG",
-        verbose_name="사용자인증로그인여부",
-    )
-    is_staff = models.BooleanField(
-        db_column="USER_ACCREDIT_STAFF_FG",
-        verbose_name="사용자인증직원여부",
-    )
-    is_anonymous = models.BooleanField(
-        db_column="USER_ACCREDIT_UNSIGN_FG",
-        verbose_name="사용자인증무기명여부",
-    )
-    is_authenticated = models.BooleanField(
-        db_column="USER_ACCREDIT_AUTH_FG",
-        verbose_name="사용자인증권한여부",
-    )
-    is_superuser = models.BooleanField(
-        db_column="USER_ACCREDIT_BEST_MNG_USER_FG",
-        verbose_name="사용자인증최고관리사용자여부",
-    )
-    expires_at = models.DateTimeField(
-        db_column="USER_ACCREDIT_EXPIRE_DT",
+    expired_at = models.DateTimeField(
+        db_column="EXPIRED_DT",
         blank=True,
         null=True,
         verbose_name="사용자인증만료일시",
-    )
-    created_at = models.DateTimeField(
-        db_column="USER_ACCREDIT_CREATE_DT",
-        blank=True,
-        null=True,
-        verbose_name="사용자인증생성일시",
     )
 
     class Meta:
@@ -137,7 +136,7 @@ class IssuedToken(TimeStampModel):
         if cls.objects.filter(username=user.username).count() > 0:
             created_issued_token = cls.objects.filter(username=user.username).update(
                 token=token,
-                expires_at=timezone.now() + api_settings.JWT_EXPIRATION_DELTA,
+                expired_at=timezone.now() + api_settings.JWT_EXPIRATION_DELTA,
             )
         else:
             created_issued_token = cls.objects.create(
@@ -148,6 +147,6 @@ class IssuedToken(TimeStampModel):
                 is_staff=False,
                 is_anonymous=False,
                 is_superuser=False,
-                expires_at=timezone.now() + api_settings.JWT_EXPIRATION_DELTA,
+                expired_at=timezone.now() + api_settings.JWT_EXPIRATION_DELTA,
             )
         return created_issued_token
