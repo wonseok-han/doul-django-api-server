@@ -77,6 +77,7 @@ class User(AbstractBaseUser, PermissionsMixin, TimeStampModel):
     )
 
     class Meta:
+        # TODO: 해당 모델의 DB로 변경하세요.
         # db_alias = "SYSTEM"
         db_alias = "default"
         db_table = "SYSTEM_USER"
@@ -116,6 +117,7 @@ class IssuedToken(TimeStampModel):
     )
 
     class Meta:
+        # TODO: 해당 모델의 DB로 변경하세요.
         # db_alias = "SYSTEM"
         db_alias = "default"
         db_table = "SYSTEM_USER_TOKEN"
