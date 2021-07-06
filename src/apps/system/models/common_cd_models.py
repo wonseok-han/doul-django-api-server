@@ -1,6 +1,6 @@
 from apps.system.choices import UseYnChoices
 from core.models.abstract import TimeStampModel
-from core.models.fields import ChineseCharField, EnglishCharField
+from core.models.fields import ChineseCharField, EnglishCharField, OrderIntegerField
 from django.db import models
 
 
@@ -74,6 +74,10 @@ class SystemCommonCodeMaster(TimeStampModel):
         blank=True,
         verbose_name="내용5",
     )
+    order = OrderIntegerField(
+        db_column="ORDER",
+        verbose_name="정렬순서",
+    )
     use_yn = models.CharField(
         db_column="USE_YN",
         max_length=1,
@@ -101,7 +105,7 @@ class SystemCommonCodeMaster(TimeStampModel):
                 name="system_common_code_master_unique",
             ),
         ]
-        ordering = ["system_div_cd", "common_cd", "common_cd_nm"]
+        ordering = ["system_div_cd", "order", "common_cd", "common_cd_nm"]
 
 
 class SystemCommonCodeDetail(TimeStampModel):
@@ -168,6 +172,10 @@ class SystemCommonCodeDetail(TimeStampModel):
         blank=True,
         verbose_name="내용5",
     )
+    order = OrderIntegerField(
+        db_column="ORDER",
+        verbose_name="정렬순서",
+    )
     use_yn = models.CharField(
         db_column="USE_YN",
         max_length=1,
@@ -202,4 +210,9 @@ class SystemCommonCodeDetail(TimeStampModel):
                 name="system_common_code_detail_unique",
             ),
         ]
-        ordering = ["system_common_code_master", "common_dtl_cd", "common_dtl_cd_nm"]
+        ordering = [
+            "system_common_code_master",
+            "order",
+            "common_dtl_cd",
+            "common_dtl_cd_nm",
+        ]
