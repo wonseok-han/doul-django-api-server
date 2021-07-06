@@ -1,4 +1,4 @@
-from django.core.validators import RegexValidator
+from django.core.validators import RegexValidator, MinValueValidator, MaxValueValidator
 from django.db import models
 
 
@@ -16,3 +16,11 @@ class ChineseCharField(models.CharField):
     """
 
     default_validators = [RegexValidator(r"^[一-龥\d\s]*$", message="중문, 숫자만 입력해주세요.")]
+
+
+class OrderIntegerField(models.PositiveIntegerField):
+    """
+    정렬순서 필드 (1~100)
+    """
+
+    default_validators = [MinValueValidator(1), MaxValueValidator(100)]
