@@ -107,6 +107,15 @@ class SystemCommonCodeMaster(TimeStampModel):
         ]
         ordering = ["system_div_cd", "order", "common_cd", "common_cd_nm"]
 
+    def save(self, *args, **kwargs):
+        """
+        모델 저장시 common_cd_key는 system_div_cd/common_cd의 조합으로 저장합니다.
+        """
+        if not self.common_cd_key:
+            self.common_cd_key = f"{self.system_div_cd}/{self.common_cd}"
+
+        return super().save(*args, **kwargs)
+
 
 class SystemCommonCodeDetail(TimeStampModel):
     """
@@ -218,3 +227,12 @@ class SystemCommonCodeDetail(TimeStampModel):
             "common_dtl_cd",
             "common_dtl_cd_nm",
         ]
+
+    def save(self, *args, **kwargs):
+        """
+        모델 저장시 common_dtl_cd_key system_common_code_master_id/common_dtl_cd 조합으로 저장합니다.
+        """
+        if not self.common_dtl_cd_key:
+            self.common_cd_key = f"{self.system_div_cd}/{self.common_dtl_cd}"
+
+        return super().save(*args, **kwargs)

@@ -103,3 +103,12 @@ class SystemMenu(TimeStampModel):
             ),
         ]
         ordering = ["upper_menu_cd_key_id", "order"]
+
+    def save(self, *args, **kwargs):
+        """
+        모델 저장시 menu_cd_key system_div_cd/menu_cd 조합으로 저장합니다.
+        """
+        if not self.menu_cd_key:
+            self.common_cd_key = f"{self.system_div_cd}/{self.menu_cd}"
+
+        return super().save(*args, **kwargs)
