@@ -1,6 +1,6 @@
 from core.utils import get_client_ip
 from django.db import models
-from flatten_dict import flatten, reducer
+from flatten_dict import flatten, reducers
 from rest_framework import fields, serializers
 from rest_framework.request import Request
 from .rules import get_rules
@@ -24,7 +24,7 @@ class CoreHyperlinkedSerializer(serializers.HyperlinkedModelSerializer):
         """
         return_dict = super().to_representation(instance)
 
-        return flatten(return_dict, reducer=reducer.make_reducer(delimiter="__"))
+        return flatten(return_dict, reducer=reducers.make_reducer(delimiter="__"))
 
     @classmethod
     def with_permalink(cls, detail_view_name):
