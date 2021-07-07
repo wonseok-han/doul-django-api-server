@@ -11,4 +11,4 @@ class SystemCommonCodeMasterSerializer(CoreHyperlinkedSerializer):
 class SystemCommonCodeDetailSerializer(CoreHyperlinkedSerializer):
     class Meta:
         model = SystemCommonCodeDetail
-        fields = ["__all__"]
+        fields = "__all__"
