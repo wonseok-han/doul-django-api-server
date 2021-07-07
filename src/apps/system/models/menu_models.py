@@ -27,13 +27,11 @@ class SystemMenu(TimeStampModel):
     )
     system_div_cd = models.CharField(
         db_column="SYSTEM_DIV_CD",
-        unique=True,
         max_length=40,
         verbose_name="시스템구분코드",
     )
     menu_cd = models.CharField(
         db_column="MENU_CD",
-        unique=True,
         max_length=20,
         verbose_name="메뉴코드",
     )

@@ -17,13 +17,11 @@ class SystemCommonCodeMaster(TimeStampModel):
     )
     system_div_cd = models.CharField(
         db_column="SYSTEM_DIV_CD",
-        unique=True,
         max_length=40,
         verbose_name="시스템구분코드",
     )
     common_cd = models.CharField(
         db_column="COMMON_CD",
-        unique=True,
         max_length=40,
         verbose_name="공통코드",
     )
@@ -132,7 +130,6 @@ class SystemCommonCodeDetail(TimeStampModel):
     )
     common_dtl_cd = models.CharField(
         db_column="COMMON_DTL_CD",
-        unique=True,
         max_length=40,
         verbose_name="공통상세코드",
     )
@@ -207,7 +204,6 @@ class SystemCommonCodeDetail(TimeStampModel):
     system_common_code_master = models.ForeignKey(
         "SystemCommonCodeMaster",
         on_delete=models.DO_NOTHING,
-        unique=True,
         db_column="COMMON_CD_KEY",
         verbose_name="공통코드식별자(시스템구분코드/공통코드)",
     )
