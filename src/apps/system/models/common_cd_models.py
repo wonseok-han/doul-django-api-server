@@ -76,9 +76,9 @@ class SystemCommonCodeMaster(TimeStampModel):
     )
     order = OrderIntegerField(
         db_column="ORDER",
-        verbose_name="정렬순서",
         blank=True,
         null=True,
+        verbose_name="정렬순서",
     )
     use_yn = models.CharField(
         db_column="USE_YN",
@@ -144,47 +144,49 @@ class SystemCommonCodeDetail(TimeStampModel):
     common_dtl_cd_eng_nm = EnglishCharField(
         db_column="COMMON_DTL_CD_ENG_NM",
         max_length=100,
-        blank=True,
+        null=True,
         verbose_name="공통상세코드영문명",
     )
     common_dtl_cd_chn_nm = ChineseCharField(
         db_column="COMMON_DTL_CD_CHN_NM",
         max_length=100,
-        blank=True,
+        null=True,
         verbose_name="공통상세코드중문명",
     )
     common_content1 = models.CharField(
         db_column="COMMON_CONTENT1",
         max_length=40,
-        blank=True,
+        null=True,
         verbose_name="내용1",
     )
     common_content2 = models.CharField(
         db_column="COMMON_CONTENT2",
         max_length=40,
-        blank=True,
+        null=True,
         verbose_name="내용2",
     )
     common_content3 = models.CharField(
         db_column="COMMON_CONTENT3",
         max_length=40,
-        blank=True,
+        null=True,
         verbose_name="내용3",
     )
     common_content4 = models.CharField(
         db_column="COMMON_CONTENT4",
         max_length=40,
-        blank=True,
+        null=True,
         verbose_name="내용4",
     )
     common_content5 = models.CharField(
         db_column="COMMON_CONTENT5",
         max_length=40,
-        blank=True,
+        null=True,
         verbose_name="내용5",
     )
     order = OrderIntegerField(
         db_column="ORDER",
+        blank=True,
+        null=True,
         verbose_name="정렬순서",
     )
     use_yn = models.CharField(
