@@ -10,7 +10,7 @@ class SystemMenu(TimeStampModel):
     시스템 메뉴정보 모델
     """
 
-    def menu_div_cd_validator(self, value):
+    def program_yn_validator(self, value):
         """
         upper_menu_cd_key 값이 없는데 최하위 프로그램메뉴구분 값이 'Y'로 들어오면 Validation Error를 발생시킵니다.
         즉, 최하위 프로그램메뉴는 반드시 상위메뉴가 존재해야 합니다.
@@ -59,7 +59,7 @@ class SystemMenu(TimeStampModel):
         max_length=1,
         choices=YnChoices.choices,
         default=YnChoices.NO,
-        validators=[menu_div_cd_validator],
+        validators=[program_yn_validator],
         verbose_name="프로그램메뉴구분",
     )
     order = OrderIntegerField(
