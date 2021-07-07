@@ -21,16 +21,25 @@ def get_rules(serializer_field, field_type):
             rules.append(
                 {
                     "type": field_type,
-                    "message": serializer_field.default_error_messages[
-                        "invalid"
-                    ].format(format="YYYY-MM-DD HH:MM:SS"),
+                    "message": serializer_field.error_messages["invalid"].format(
+                        format="YYYY-MM-DD HH:MM:SS"
+                    ),
+                }
+            )
+        elif field_type == "foreign_key":
+            rules.append(
+                {
+                    "type": field_type,
+                    "message": serializer_field.error_messages["incorrect_type"].format(
+                        data_type="URL 형식이 아닌 값"
+                    ),
                 }
             )
         else:
             rules.append(
                 {
                     "type": field_type,
-                    "message": serializer_field.default_error_messages["invalid"],
+                    "message": serializer_field.error_messages["invalid"],
                 }
             )
 
