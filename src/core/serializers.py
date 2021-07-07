@@ -77,12 +77,11 @@ def get_columns_from_serializer(serializer):
     """
 
     meta_cls = serializer.Meta
-    model_fields_dict = {
-        model_field.name: model_field for model_field in meta_cls.model._meta_fields
-    }
+    model_fields_dict = serializer.fields
+    # model_fields_dict = {model_field.name: model_field for model_field in meta_fields}
 
     columns = []
-    for serializer_field_name, serializer_field in serializer.fields.item():
+    for serializer_field_name, serializer_field in serializer.fields.items():
         model_field = model_fields_dict.get(serializer_field_name)
 
         if isinstance(model_field, models.TextField):
@@ -93,6 +92,8 @@ def get_columns_from_serializer(serializer):
             field_type = "float"
         elif isinstance(serializer_field, (fields.DecimalField,)):
             field_type = "decimal"
+        elif isinstance(serializer_field, (fields.IPAddressField,)):
+            field_type = "ip"
         elif isinstance(serializer_field, (fields.CharField,)):
             field_type = "string"
         elif isinstance(serializer_field, (fields.EmailField,)):
@@ -107,8 +108,6 @@ def get_columns_from_serializer(serializer):
             field_type = "datetime"
         elif isinstance(serializer_field, (fields.FileField,)):
             field_type = "file"
-        elif isinstance(serializer_field, (fields.IPAddressField)):
-            field_type = "ip"
         elif isinstance(serializer_field, (fields.SerializerMethodField,)):
             if serializer_field.method_name is None:
                 method_name = f"get_{serializer_field_name}"
@@ -142,6 +141,6 @@ def get_columns_from_serializer(serializer):
             "rules": get_rules(serializer_field, field_type),
         }
 
-        column.append(column)
+        columns.append(column)
 
     return columns
