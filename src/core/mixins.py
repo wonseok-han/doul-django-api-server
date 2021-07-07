@@ -41,11 +41,11 @@ class CoreMixinViewSet:
 
             # FIXME: 테스트 후 필요한지 추후 결정
             # list_data에서 조작된 FK URL 문자열을 회복
-            cleaned_list_data = [self.clean_fk_url(row_data) for row_data in list_data]
+            # cleaned_list_data = [self.clean_fk_url(row_data) for row_data in list_data]
 
             response_dict = dict(
                 count=self.paginator.page.paginator.count,
-                results=cleaned_list_data,
+                results=list_data,
             )
 
             return Response(response_dict)
