@@ -12,7 +12,7 @@ class TimeStampModel(models.Model):
         db_column="INS_USER_IP",
         max_length=20,
         default="127.0.0.1",
-        verbose_name="입력사용자아이디",
+        verbose_name="입력사용자IP",
     )
     insert_date_time = models.DateTimeField(
         db_column="INS_DT",
