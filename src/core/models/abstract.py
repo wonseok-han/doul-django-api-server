@@ -22,7 +22,7 @@ class TimeStampModel(models.Model):
     update_user_id = models.CharField(
         db_column="UPD_USER_ID",
         max_length=20,
-        blank=True,
+        null=True,
         verbose_name="수정사용자아이디",
     )
     update_user_ip = models.GenericIPAddressField(
