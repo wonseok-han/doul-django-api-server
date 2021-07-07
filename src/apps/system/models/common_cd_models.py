@@ -126,7 +126,7 @@ class SystemCommonCodeDetail(TimeStampModel):
         db_column="COMMON_DTL_CD_KEY",
         primary_key=True,
         max_length=120,
-        verbose_name="공통상세코드식별자(시스템구분코드/공통코드/공통상세코드)",
+        verbose_name="공통상세코드식별자(공통코드식별자/공통상세코드)",
     )
     common_dtl_cd = models.CharField(
         db_column="COMMON_DTL_CD",
