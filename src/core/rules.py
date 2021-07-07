@@ -2,6 +2,7 @@ from django.core.validators import (
     DecimalValidator,
     EmailValidator,
 )
+from rest_framework import fields
 
 
 def get_rules(serializer_field, field_type):
@@ -16,7 +17,22 @@ def get_rules(serializer_field, field_type):
         )
 
     if field_type:
-        rules.append({"type": field_type, "message": f"Invalid {field_type}"})
+        if isinstance(serializer_field, (fields.DateTimeField,)):
+            rules.append(
+                {
+                    "type": field_type,
+                    "message": serializer_field.default_error_messages[
+                        "invalid"
+                    ].format(format="YYYY-MM-DD HH:MM:SS"),
+                }
+            )
+        else:
+            rules.append(
+                {
+                    "type": field_type,
+                    "message": serializer_field.default_error_messages["invalid"],
+                }
+            )
 
     for validator in serializer_field.validators:
         if isinstance(validator, DecimalValidator):
