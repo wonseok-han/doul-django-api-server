@@ -137,7 +137,7 @@ def get_columns_from_serializer(serializer):
 
         column = {
             "name": serializer_field_name,
-            "label": serializer_field_name or label_in_model,
+            "label": serializer_field.label or serializer_field_name,
             "rules": get_rules(serializer_field, field_type),
         }
 

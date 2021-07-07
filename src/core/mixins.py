@@ -34,8 +34,6 @@ class CoreMixinViewSet:
         if page is not None:
             serializer = self.get_serializer(page, many=True)
 
-            list_data = serializer.data
-
             # FIXME: 조회시 meta colums가 필요할까?
             # columns = get_columns_from_serializer(serializer)
 
@@ -45,7 +43,7 @@ class CoreMixinViewSet:
 
             response_dict = dict(
                 count=self.paginator.page.paginator.count,
-                results=list_data,
+                results=serializer.data,
             )
 
             return Response(response_dict)
