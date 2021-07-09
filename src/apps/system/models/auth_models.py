@@ -5,6 +5,10 @@ from django.db import models
 
 
 class SystemAuth(TimeStampModel):
+    """
+    시스템 권한 모델
+    """
+
     auth_cd_key = models.CharField(
         db_column="AUTH_CD_KEY",
         primary_key=True,
@@ -63,6 +67,10 @@ class SystemAuth(TimeStampModel):
 
 
 class SystemMenuAuth(TimeStampModel):
+    """
+    시스템 메뉴권한 모델
+    """
+
     menu_auth_cd_key = models.CharField(
         db_column="MENU_AUTH_CD_KEY",
         primary_key=True,
@@ -148,6 +156,10 @@ class SystemMenuAuth(TimeStampModel):
 
 
 class SystemUserAuth(TimeStampModel):
+    """
+    시스템 사용자권한 모델
+    """
+
     user_auth_cd_ky = models.CharField(
         db_column="USER_AUTH_CD_KEY",
         primary_key=True,
@@ -191,6 +203,10 @@ class SystemUserAuth(TimeStampModel):
 
 
 class SystemUserGroupAuth(TimeStampModel):
+    """
+    시스템 사용자그룹권한 모델
+    """
+
     user_group_auth_cd_ky = models.CharField(
         db_column="USER_GROUP_AUTH_CD_KEY",
         primary_key=True,
@@ -211,18 +227,12 @@ class SystemUserGroupAuth(TimeStampModel):
         db_column="AUTH_CD_KEY",
         verbose_name="시스템권한식별자",
     )
-    # TODO: 부서모델 작성 필요
-    system_group = models.CharField(
+    system_group = models.ForeignKey(
+        "system.SystemDepartment",
+        on_delete=models.DO_NOTHING,
         db_column="DEPT_CD",
-        max_length=50,
-        verbose_name="부서코드",
+        verbose_name="소속코드",
     )
-    # system_group = models.ForeignKey(
-    #     "system.Department",
-    #     on_delete=models.DO_NOTHING,
-    #     db_column="DEPT_CD",
-    #     verbose_name="부서코드",
-    # )
 
     class Meta:
         # TODO: 해당 모델의 DB로 변경하세요.
