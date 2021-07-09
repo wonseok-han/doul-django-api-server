@@ -5,6 +5,7 @@ django-cors-headers
 django-filter
 djangorestframework
 drf-jwt
+mysqlcient
 
 flatten-dict
 
