@@ -72,3 +72,12 @@ class SystemDepartment(TimeStampModel):
                 name="system_department_unique",
             ),
         ]
+
+    def save(self, *args, **kwargs):
+        """
+        모델 저장시 dept_cd_key는 dept_cd로 저장됩니다.
+        """
+        if not self.dept_cd_key:
+            self.dept_cd_key = f"{self.dept_cd_key}"
+
+        return super().save(*args, **kwargs)
