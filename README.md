@@ -6,7 +6,7 @@
 ## 패키지 설치
 * 개발
 ```shell
-# 프롲게트의 root 경로에서 아래 명령을 실행합니다.
+# 프로젝트의 root 경로에서 아래 명령을 실행합니다.
 
 pip install -r ./requirements/dev.txt
 ```
