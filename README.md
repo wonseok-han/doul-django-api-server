@@ -3,6 +3,9 @@
 ## Python Version
 * 3.9.5
 
+## Database
+* MySql
+
 ## Package Install
 * 개발
 ```shell
