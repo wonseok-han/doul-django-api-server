@@ -3,7 +3,7 @@
 ## Python Version
 * 3.9.5
 
-## 패키지 설치
+## Package Install
 * 개발
 ```shell
 # 프로젝트의 root 경로에서 아래 명령을 실행합니다.
@@ -39,7 +39,7 @@ python manage.py sqlmigrate "앱명" "마이그레이션 파일 번호"
 python manage.py migrate "앱명"
 ```
 
-## 서버 구동
+## Run Server
 ```shell
 # 프로젝트의 root 경로에서 아래 명령을 실행합니다.
 
