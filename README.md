@@ -39,7 +39,10 @@ python manage.py makemigrations "앱명"
 python manage.py sqlmigrate "앱명" "마이그레이션 파일 번호"
 
 # Migration 파일을 토대로 Migrate
-python manage.py migrate "앱명"
+python manage.py migrate_refactored "앱명"
+
+# MultiDB로 연결된 DB Migrate시 아래 명령 사용
+python manage.py migrate_refactored --database "Alias DB명"
 ```
 
 ## Run Server
