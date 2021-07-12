@@ -4,7 +4,7 @@ from .serializers import get_columns_from_serializer
 from rest_framework.decorators import action
 
 
-class CoreMixinViewSet:
+class CoreMixin:
     """
     CoreHyperlinkedSerializer를 수용하는 Mixin ViewSet을 생성합니다.
     """
