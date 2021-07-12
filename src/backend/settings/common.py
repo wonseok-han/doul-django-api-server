@@ -119,7 +119,7 @@ DATABASE_NAMES: List[str] = env.list("DATABASE_NAMES", default=[])
 
 if DATABASE_NAMES:
     for db_name in DATABASE_NAMES:
-        db_alias = db_name.lower()
+        db_alias = db_name
         default_db_name = DATABASES["default"]["NAME"]
 
         if "sqlite3" in DATABASES["default"]["ENGINE"]:
@@ -127,7 +127,7 @@ if DATABASE_NAMES:
             sqlite3_dirpath = os.path.dirname(default_db_name)
             new_db_name = os.path.join(sqlite3_dirpath, f"{db_name}.sqlite3")
         else:
-            new_db_name = db_name.lower()
+            new_db_name = db_name
 
         DATABASES[db_alias] = dict(DATABASES["default"], NAME=new_db_name)
 
@@ -225,7 +225,7 @@ REST_FRAMEWORK = {
     # FIXME: Renderer
     # "DEFAULT_RENDERER_CLASSES": ["core.renderers.JSONRenderer"],
     "DEFAULT_RENDERER_CLASSES": ["rest_framework.renderers.JSONRenderer"],
-    "DEFAULT_PERMISSION_CLASSES": DEFAULT_PERMISSION_CLASSES,
+    # "DEFAULT_PERMISSION_CLASSES": DEFAULT_PERMISSION_CLASSES,
     # FIXME: Exeption Handler
     # "EXCEPTION_HANDLER": "core.views.custom_exception_handler",
     "EXCEPTION_HANDLER": "rest_framework.views.exception_handler",

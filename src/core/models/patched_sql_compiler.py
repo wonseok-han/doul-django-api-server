@@ -43,14 +43,14 @@ def handle_app_ready(**kwargs):
 
     if not _DB_TABLES_MAPPING:
         db_alias_dict_on_model_meta: Dict[str, str] = {
-            model_cls._meta.db_table.lower(): model_cls._meta.db_alias.lower()
+            model_cls._meta.db_table: model_cls._meta.db_alias
             for model_cls in apps.get_models()
             if hasattr(model_cls._meta, "db_table")
             and hasattr(model_cls._meta, "db_alias")
         }
 
         db_name_dict = {
-            db_alias.lower(): db_settings["NAME"]
+            db_alias: db_settings["NAME"]
             for db_alias, db_settings in settings.DATABASES.items()
         }
 
@@ -74,7 +74,7 @@ def handle_app_ready(**kwargs):
                 # 다른 DB 엔진에 대해서는 구현되어 있지 않습니다.
                 view_names = []
 
-            for table_name in map(lambda s: s.lower(), table_names + view_names):
+            for table_name in map(lambda s: s, table_names + view_names):
                 current_db_alias = db_alias_dict_on_model_meta.get(table_name, db_alias)
 
                 PRE_SCANNED_DB_ALIAS_BY_TABLE_NAME[table_name] = current_db_alias
