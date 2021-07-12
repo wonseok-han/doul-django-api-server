@@ -14,6 +14,7 @@ from rest_framework.decorators import api_view
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.test import APIClient
+from rest_framework.views import exception_handler
 
 
 class Method(str, Enum):
@@ -141,3 +142,21 @@ def batch(request):
         traceback.print_stack()
 
     return Response(response_list, status=status_code)
+
+
+def custom_exception_handler(exc, context):
+    # Call REST framework's default exception handler first,
+    # to get the standard error response.
+
+    response = exception_handler(exc, context)
+
+    # Now add the HTTP status code to the response.
+    if response is not None:
+        message = hasattr(exc, "detail") and exc.detail or str(exc)
+        response.data = {
+            "error": [
+                {"message": message},
+            ],
+        }
+
+    return response

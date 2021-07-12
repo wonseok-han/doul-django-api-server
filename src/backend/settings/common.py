@@ -228,7 +228,8 @@ REST_FRAMEWORK = {
     # "DEFAULT_PERMISSION_CLASSES": DEFAULT_PERMISSION_CLASSES,
     # FIXME: Exeption Handler
     # "EXCEPTION_HANDLER": "core.views.custom_exception_handler",
-    "EXCEPTION_HANDLER": "rest_framework.views.exception_handler",
+    # "EXCEPTION_HANDLER": "rest_framework.views.exception_handler",
+    "EXCEPTION_HANDLER": "core.views.custom_exception_handler",
     "PAGE_SIZE": env.int("PAGE_SIZE", 100000),
     "URL_FIELD_NAME": "permalink",
     "DATETIME_FORMAT": "%Y-%m-%d %H:%M:%S",
