@@ -83,7 +83,11 @@ def handle_app_ready(**kwargs):
                     db_name = current_db_alias
                 else:
                     try:
-                        db_name = db_name_dict[current_db_alias]
+                        db_name = (
+                            current_db_alias
+                            if db_name_dict["default"] == current_db_alias
+                            else db_name_dict[current_db_alias]
+                        )
                     except KeyError:
                         raise ImproperlyConfigured(
                             f"{current_db_alias} 데이터베이스 설정이 누락되었습니다."
