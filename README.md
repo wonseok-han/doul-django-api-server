@@ -24,7 +24,8 @@ pip install -r ./requirements/prod.txt
 
 ```dotenv
 # Database Example
-DATABASE_URL=mysql://user:%23password@127.0.0.1:3306/dbname
+DATABASE_URL=mysql://user:%23password@127.0.0.1:3306/dbname1
+DATABASE_NAMES=dbname1,dbname2
 ```
 
 ## Migration
