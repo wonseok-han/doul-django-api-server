@@ -23,4 +23,4 @@ class OrderIntegerField(models.PositiveIntegerField):
     정렬순서 필드 (1~100)
     """
 
-    default_validators = [MinValueValidator(1), MaxValueValidator(100)]
+    default_validators = [MinValueValidator(1), MaxValueValidator(1000)]
