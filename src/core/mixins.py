@@ -9,6 +9,8 @@ class CoreMixinViewSet:
     CoreHyperlinkedSerializer를 수용하는 Mixin ViewSet을 생성합니다.
     """
 
+    lookup_value_regex = r"[^.]+"
+
     def dispatch(self, request, *args, **kwargs):
         # batch를 통한 요청
         if getattr(request, "_batch_request", False):
