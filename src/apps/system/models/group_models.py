@@ -28,6 +28,7 @@ class SystemDepartment(TimeStampModel):
     dept_eng_nm = EnglishCharField(
         db_column="DEPT_ENG_NM",
         max_length=100,
+        null=True,
         verbose_name="소속영문명",
     )
     order = OrderIntegerField(
