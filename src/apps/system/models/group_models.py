@@ -31,7 +31,7 @@ class SystemDepartment(TimeStampModel):
         verbose_name="소속영문명",
     )
     order = OrderIntegerField(
-        db_column="ORDER",
+        db_column="ORDER_SEQ",
         blank=True,
         null=True,
         verbose_name="정렬순서",

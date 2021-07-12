@@ -31,7 +31,7 @@ class SystemAuth(TimeStampModel):
         verbose_name="권한명",
     )
     order = OrderIntegerField(
-        db_column="ORDER",
+        db_column="ORDER_SEQ",
         blank=True,
         null=True,
         verbose_name="정렬순서",

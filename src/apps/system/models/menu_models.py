@@ -61,7 +61,7 @@ class SystemMenu(TimeStampModel):
         verbose_name="프로그램메뉴구분",
     )
     order = OrderIntegerField(
-        db_column="ORDER",
+        db_column="ORDER_SEQ",
         verbose_name="정렬순서",
     )
     use_yn = models.CharField(

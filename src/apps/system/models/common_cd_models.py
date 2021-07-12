@@ -73,7 +73,7 @@ class SystemCommonCodeMaster(TimeStampModel):
         verbose_name="내용5",
     )
     order = OrderIntegerField(
-        db_column="ORDER",
+        db_column="ORDER_SEQ",
         blank=True,
         null=True,
         verbose_name="정렬순서",
@@ -181,7 +181,7 @@ class SystemCommonCodeDetail(TimeStampModel):
         verbose_name="내용5",
     )
     order = OrderIntegerField(
-        db_column="ORDER",
+        db_column="ORDER_SEQ",
         blank=True,
         null=True,
         verbose_name="정렬순서",
