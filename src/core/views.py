@@ -145,6 +145,9 @@ def batch(request):
 
 
 def custom_exception_handler(exc, context):
+    """
+    Custom Exception Handler
+    """
     # Call REST framework's default exception handler first,
     # to get the standard error response.
 
