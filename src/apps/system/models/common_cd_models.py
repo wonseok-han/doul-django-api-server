@@ -201,7 +201,7 @@ class SystemCommonCodeDetail(TimeStampModel):
     )
 
     # Relation Fields
-    system_common_code_master = models.ForeignKey(
+    common_cd_key = models.ForeignKey(
         "SystemCommonCodeMaster",
         on_delete=models.DO_NOTHING,
         db_column="COMMON_CD_KEY",
@@ -217,12 +217,12 @@ class SystemCommonCodeDetail(TimeStampModel):
 
         constraints = [
             models.UniqueConstraint(
-                fields=["system_common_code_master_id", "common_dtl_cd"],
+                fields=["common_cd_key_id", "common_dtl_cd"],
                 name="system_common_code_detail_unique",
             ),
         ]
         ordering = [
-            "system_common_code_master",
+            "common_cd_key",
             "order",
             "common_dtl_cd",
             "common_dtl_cd_nm",
